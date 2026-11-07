@@ -1,3 +1,5 @@
 .DS_Store
 # public test vectors with real people's details (make public-vectors)
 /third_party/
+# ?debug=1 "Save frame" downloads: real licence images
+scanner-frame-*

@@ -1,0 +1,151 @@
+/* Full-screen scanner overlay (scanner.js) - self-contained, shared by scan/ and show/ */
+.scanner {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #000;
+  overflow: hidden;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+.scanner.hidden,
+.scanner .hidden {
+  display: none !important;
+}
+html.scanner-open,
+html.scanner-open body {
+  overflow: hidden;
+}
+
+.scanner video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* scanner.js maps the viewfinder through this crop */
+}
+
+/* a camera facing the user (laptop webcam): preview only, see scanner.js */
+.scanner video.mirrored {
+  transform: scaleX(-1);
+}
+
+/* Positioned/sized by scanner.js (layoutViewfinder) - its exact rectangle
+   is also what gets decoded. The huge shadow dims everything outside it. */
+.scanner .viewfinder {
+  position: absolute;
+  border-radius: 10px;
+  box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 0.5);
+}
+
+.scanner .corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 4px solid #fff;
+  transition: border-color 0.2s;
+}
+.scanner .corner.tl { top: -4px; left: -4px; border-right: 0; border-bottom: 0; border-top-left-radius: 12px; }
+.scanner .corner.tr { top: -4px; right: -4px; border-left: 0; border-bottom: 0; border-top-right-radius: 12px; }
+.scanner .corner.bl { bottom: -4px; left: -4px; border-right: 0; border-top: 0; border-bottom-left-radius: 12px; }
+.scanner .corner.br { bottom: -4px; right: -4px; border-left: 0; border-top: 0; border-bottom-right-radius: 12px; }
+
+/* barcode seen: corners turn green */
+.scanner .viewfinder.seen .corner {
+  border-color: #34c759;
+}
+
+.scanner .progress {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -18px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.scanner .viewfinder.seen .progress {
+  opacity: 1;
+}
+.scanner .progress-bar {
+  height: 100%;
+  width: 0;
+  background: #34c759;
+  transition: width 0.25s;
+}
+
+.scanner-top {
+  position: absolute;
+  top: max(1rem, env(safe-area-inset-top));
+  left: max(1rem, env(safe-area-inset-left));
+  right: max(1rem, env(safe-area-inset-right));
+  display: flex;
+  justify-content: space-between;
+}
+
+/* same size as the wallet's buttons (show/show.css) */
+.scanner button.round {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font: inherit;
+  font-size: 1.3rem;
+  line-height: 44px;
+  cursor: pointer;
+}
+.scanner button.round.on {
+  background: #fff;
+  color: #000;
+}
+
+.scanner-bottom {
+  position: absolute;
+  left: max(1rem, env(safe-area-inset-left));
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.scanner .notice {
+  margin: 0 auto 0.75rem;
+  max-width: 28rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: rgba(180, 83, 9, 0.9);
+  font-size: 0.9rem;
+  text-shadow: none;
+}
+
+.scanner .hint {
+  margin: 0 0 0.3rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.scanner .subhint {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.scanner .debug {
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  top: 5rem;
+  margin: 0;
+  font-size: 0.65rem;
+  white-space: pre-wrap;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 0.4rem;
+  border-radius: 6px;
+}

@@ -1,0 +1,197 @@
+:root {
+  --bg: #f5f5f7;
+  --card-bg: #ffffff;
+  --border: #d8d8dc;
+  --text: #1c1c1e;
+  --muted: #6b6b70;
+  --accent: #2a63d6; /* 4.5:1 on the grey background too */
+  --accent-text: #ffffff;
+  --error-bg: #fdecea;
+  --error-text: #92140c;
+  --ok: #34c759;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------ home */
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: max(2rem, env(safe-area-inset-top)) 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+header {
+  text-align: center;
+  padding: 1.5rem 0 0.5rem;
+}
+
+header h1 {
+  margin: 0 0 0.35rem;
+  font-size: 1.6rem;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+button {
+  font: inherit;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+button.big {
+  font-size: 1.15rem;
+  padding: 1rem;
+  border-radius: 14px;
+  width: 100%;
+}
+
+.status {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+  min-height: 1.2em;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.result-body {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.photo {
+  width: 160px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+#result-fields {
+  flex: 1;
+  min-width: 240px;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+#result-fields td {
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+#result-fields td:first-child {
+  color: var(--muted);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.scanned-label {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.scanned-image {
+  display: block;
+  max-width: 100%;
+  max-height: 320px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.error {
+  background: var(--error-bg);
+  color: var(--error-text);
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------ notices */
+.notice-text {
+  margin: 1rem 0 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.notice-text p {
+  margin: 0 0 0.4rem;
+}
+
+a {
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------ about page */
+.about section h2 {
+  font-size: 1.1rem;
+  margin: 1rem 0 0.25rem;
+}
+
+.about section p {
+  margin: 0 0 0.6rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.app-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.app-link strong {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.app-link span {
+  color: var(--muted);
+  font-size: 0.95rem;
+}

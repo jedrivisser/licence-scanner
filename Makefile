@@ -1,5 +1,11 @@
 # web/ is the whole site: static files, no build step.
 
+# Local run: about page http://localhost:8080/, scanner /scan/, wallet
+# /show/. Browsers allow the camera on localhost without HTTPS.
+.PHONY: serve
+serve:
+	python3 -m http.server 8080 --bind 127.0.0.1 --directory web
+
 .PHONY: test
 test:
 	node --test tests/js/*.test.js

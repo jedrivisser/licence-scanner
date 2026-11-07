@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- GitHub Pages can't send headers, so the policy is set here: only this site's own files, no
+       third-party requests (scans never leave the device), data: images for the decoded photo. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#f5f5f7" />
+  <meta name="description" content="Scan a South African driving licence card: its details and photo, read entirely in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SA Licence Scanner" />
+  <meta property="og:description" content="Scan a South African driving licence card: its details and photo, read entirely in your browser." />
+  <title>SA Licence Scanner</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Licence" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../scanner.css" />
+</head>
+<body>
+  <!-- Start + results share one screen: the button, then (after a scan) the result card -->
+  <main id="home">
+    <header>
+      <h1>SA Licence Scanner</h1>
+      <p class="subtitle">Reads the barcode on the back of a South African driving licence.</p>
+    </header>
+
+    <button id="scan-btn" class="primary big">Scan licence</button>
+    <p id="home-status" class="status" role="status"></p>
+
+    <section class="card hidden" id="result-card" tabindex="-1" aria-label="Scan result">
+      <div id="result-error" class="error hidden"></div>
+      <div id="result-body" class="result-body">
+        <img id="result-photo" class="photo hidden" alt="Licence photo" />
+        <table id="result-fields"></table>
+      </div>
+      <div id="result-scanned-wrap" class="hidden">
+        <p class="scanned-label">Scanned image</p>
+        <img id="result-scanned-image" class="scanned-image" alt="The camera frame that was decoded" />
+      </div>
+    </section>
+
+    <footer class="notice-text">
+      <p>Everything runs on this device: the camera image and the licence's details are never uploaded or stored.</p>
+      <p>Not an official service. A barcode that reads correctly doesn't prove the card is genuine or the licence is valid.</p>
+      <p><a href="../">About, privacy and licences</a></p>
+    </footer>
+  </main>
+
+  <script src="../sadl.js"></script>
+  <script src="../wi.js"></script>
+  <script src="../scan-hints.js"></script>
+  <script src="../camera-pick.js"></script>
+  <script src="../scanner.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

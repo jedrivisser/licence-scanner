@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- GitHub Pages can't send headers, so the policy is set here: only this site's own files, no
+       third-party requests (scans never leave the device), data: images for the decoded photo. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Keep your own driving licence's barcode on your phone and show it full screen. Not a substitute for the card." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Licence Barcode" />
+  <meta property="og:description" content="Keep your own driving licence's barcode on your phone and show it full screen. Not a substitute for the card." />
+  <title>Licence Barcode</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Licence Barcode" />
+  <link rel="stylesheet" href="../scanner.css" />
+  <link rel="stylesheet" href="show.css" />
+</head>
+<body>
+  <!-- No licence stored yet -->
+  <main id="empty" class="empty hidden">
+    <h1>Licence Barcode</h1>
+    <p>Scan your licence once. It's kept on this phone only, and shown full screen whenever you open the app, even without signal.</p>
+    <p class="warning"><strong>This is not a driving licence.</strong> The law requires you to carry your licence card and produce it when asked; a barcode on a phone doesn't replace it. Only store your own licence.</p>
+    <button id="scan-btn" class="primary">Scan licence</button>
+    <p id="status" class="status" role="status"></p>
+    <p class="notice-text"><a href="../">About, privacy and licences</a></p>
+  </main>
+
+  <!-- The stored barcode, full screen -->
+  <div id="display" class="display hidden">
+    <canvas id="barcode" role="img" aria-label="Driving licence barcode"></canvas>
+    <p id="caption" class="caption" role="status"></p>
+    <button id="rescan-btn" class="x" aria-label="Scan a different licence">&#x2715;</button>
+    <button id="remove-btn" class="x remove" aria-label="Remove the stored licence">&#x1F5D1;&#xFE0E;</button>
+    <button id="copy-btn" class="x copy hidden" aria-label="Copy the stored barcode data">&#x29C9;</button>
+  </div>
+
+  <script src="../pdf417-codes.js"></script>
+  <script src="../pdf417-encode.js"></script>
+  <script src="../sadl.js"></script>
+  <script src="../scan-hints.js"></script>
+  <script src="../camera-pick.js"></script>
+  <script src="../scanner.js"></script>
+  <script src="show.js"></script>
+</body>
+</html>

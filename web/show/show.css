@@ -1,0 +1,121 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #fff;
+  color: #1c1c1e;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------ empty */
+.empty {
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: max(3rem, env(safe-area-inset-top)) 1.5rem 2rem;
+  text-align: center;
+}
+.empty h1 {
+  font-size: 1.6rem;
+  margin: 2rem 0 0.75rem;
+}
+.empty p {
+  color: #6b6b70;
+  line-height: 1.45;
+}
+button.primary {
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 600;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 0;
+  border-radius: 14px;
+  background: #1c1c1e;
+  color: #fff;
+  cursor: pointer;
+}
+.status {
+  min-height: 1.2em;
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------ display */
+/* Pure white, nothing near the symbol: scanners want contrast and a quiet
+   zone. The canvas is sized in device pixels by show.js. */
+.display {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.display canvas {
+  display: block;
+  image-rendering: pixelated;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+  margin: 0;
+  padding: 0 max(1rem, env(safe-area-inset-left)) 0 max(1rem, env(safe-area-inset-right));
+  text-align: center;
+  font-size: 0.8rem;
+  color: #6b6b70;
+}
+
+/* same size and corner as the scanner's close button (scanner.css) */
+button.x {
+  position: absolute;
+  top: max(1rem, env(safe-area-inset-top));
+  left: max(1rem, env(safe-area-inset-left));
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #f2f2f7;
+  color: #3a3a3c;
+  font: inherit;
+  font-size: 1.1rem;
+  line-height: 44px;
+  cursor: pointer;
+}
+button.x.remove {
+  left: auto;
+  right: max(1rem, env(safe-area-inset-right));
+}
+/* ?debug=1 only: copy the stored bytes, next to the bin */
+button.x.copy {
+  left: auto;
+  right: calc(max(1rem, env(safe-area-inset-right)) + 52px);
+}
+
+/* ------------------------------------------------------------ notices */
+.empty p.warning {
+  color: #92140c;
+  background: #fdecea;
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  text-align: left;
+}
+.empty p.notice-text {
+  font-size: 0.8rem;
+}
+.empty a {
+  color: #2a63d6;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- GitHub Pages can't send headers, so the policy is set here: only this site's own files, no
+       third-party requests (scans never leave the device), data: images for the decoded photo. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#f5f5f7" />
+  <meta name="description" content="Read the barcode on a South African driving licence card in your browser. Nothing is uploaded." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SA Licence Scanner: about, privacy and licences" />
+  <meta property="og:description" content="Read the barcode on a South African driving licence card in your browser. Nothing is uploaded." />
+  <title>SA Licence Scanner: about, privacy and licences</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="scan/icons/favicon-32.png" />
+  <link rel="apple-touch-icon" href="scan/icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Not an app itself: links to the two installable apps (scan/, show/),
+       which need separate scopes, and the notices they link back to. -->
+  <main class="about">
+    <header>
+      <h1>SA Licence Scanner</h1>
+      <p class="subtitle">Reads the barcode on the back of a South African driving licence card, entirely in your browser.</p>
+    </header>
+
+    <a class="card app-link" href="scan/">
+      <strong>Scanner</strong>
+      <span>Shows the details and photo stored in a licence card's barcode.</span>
+    </a>
+    <a class="card app-link" href="show/">
+      <strong>Licence Barcode</strong>
+      <span>Keeps your own licence's barcode on your phone and shows it full screen. Not a substitute for your licence card.</span>
+    </a>
+
+    <section>
+      <h2>Privacy</h2>
+      <p>Everything happens on your device. The camera image and the licence's details are never uploaded, and there
+        are no analytics, ads or cookies.</p>
+      <p>The scanner keeps nothing once you close it, except which of your cameras to use. The Licence Barcode app
+        keeps the scanned barcode in this browser's storage on this device only; remove it with the bin button next to
+        the barcode, or by uninstalling the app or clearing this site's data.</p>
+      <p>The site is served by GitHub Pages through Cloudflare. Like any website, they may log basic request details
+        (such as IP address and time) when a page loads. Those requests never contain licence data.</p>
+      <p>If you scan someone else's licence, you are responsible for handling their personal information lawfully
+        (in South Africa, under POPIA): have a reason, ask them first, and don't keep copies you don't need.</p>
+    </section>
+
+    <section>
+      <h2>Not an official service</h2>
+      <p>This is an independent open-source project, not affiliated with or endorsed by the Department of Transport,
+        the RTMC, the eNaTIS system or any other government body.</p>
+      <p>It shows what the barcode contains. A barcode that reads correctly doesn't prove that the card is genuine,
+        that the licence is valid or that the person showing it is its holder.</p>
+      <p><strong>The Licence Barcode app is not a driving licence.</strong> The law requires drivers to carry their
+        licence card and produce it when asked by a traffic officer; a barcode on a phone doesn't replace it.</p>
+      <p>Provided as is, without warranty of any kind. You use it at your own risk.</p>
+    </section>
+
+    <section>
+      <h2>Source and licences</h2>
+      <p><a href="https://github.com/jedrivisser/licence-scanner">Source code on GitHub</a> (MIT licence). It builds on
+        Francois Stander's specification and test data for these barcodes, Donald Jansen's reconstruction of the photo
+        format and Ivan Habunek's pdf417-py; see the <a href="licences.txt">licences and notices</a>.</p>
+    </section>
+  </main>
+  <script src="about.js"></script>
+</body>
+</html>

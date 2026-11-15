@@ -172,6 +172,12 @@ test("an unknown page while offline redirects to the cached root page", async ()
   assert.deepStrictEqual(resp, { redirect: ORIGIN + "/", status: 302 });
 });
 
+test("the deploy's version stamp matches CACHE in sw.js", () => {
+  const workflow = fs.readFileSync(path.join(__dirname, "..", "..", ".github", "workflows", "pages.yml"), "utf8");
+  const [, pattern] = workflow.match(/sed -i "s\/([^/]+)\//);
+  assert.match(SRC, new RegExp(pattern), "pages.yml's sed no longer finds CACHE in sw.js");
+});
+
 test("SHELL lists every file both apps load, and nothing that doesn't exist", () => {
   const shell = shellOf();
   const file = (p) => path.join(WEB, p.endsWith("/") ? `${p}index.html` : p);  // p starts with "/"

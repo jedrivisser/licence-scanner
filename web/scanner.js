@@ -17,6 +17,11 @@
   // ?debug=1&camera=ultra: use the first camera whose label contains "ultra",
   // to compare a phone's lenses (see "Help wanted" in the README). Not saved.
   const FORCE_CAMERA = DEBUG ? (PARAMS.get("camera") || "").toLowerCase() : "";
+  // ?debug=1&zoom=2: ask the camera for that zoom (where it supports zoom).
+  // On an iPhone's multi-lens camera ("Back Triple Camera", "Back Dual Wide
+  // Camera") zoom 1 is the ultra-wide lens; at 2 iOS uses the main lens and
+  // can switch to the ultra-wide's macro focus close up - see the README.
+  const FORCE_ZOOM = DEBUG ? Number(PARAMS.get("zoom")) || 0 : 0;
 
   // ------------------------------------------------------------ overlay
   const root = document.createElement("div");
@@ -196,8 +201,14 @@
     } catch (err) {
       names = [`(can't list: ${err.message || err})`];
     }
+    const track = mediaStream?.getVideoTracks()[0];
+    const caps = track?.getCapabilities?.() || {};
+    const settings = track?.getSettings?.() || {};
+    const range = (r, unit = "") => (r && r.min !== undefined ? `${r.min}-${r.max}${unit}` : "n/a");
     debugCameras =
-      `camera: ${mediaStream?.getVideoTracks()[0]?.label || "?"} ${video.videoWidth}x${video.videoHeight}\n` +
+      `camera: ${track?.label || "?"} ${video.videoWidth}x${video.videoHeight}\n` +
+      `zoom ${range(caps.zoom)} (now ${settings.zoom ?? "n/a"}), focus distance ${range(caps.focusDistance, " m")}, ` +
+      `focus modes ${(caps.focusMode || []).join("/") || "n/a"}\n` +
       `all cameras: ${names.join(" | ")}\n`;
     debugEl.textContent = debugCameras;
   }
@@ -265,6 +276,13 @@
     // will arrive, so close rather than show a frozen preview
     const stream = mediaStream;
     for (const t of stream.getTracks()) t.addEventListener("ended", () => mediaStream === stream && close());
+    if (FORCE_ZOOM) {
+      try {
+        await mediaStream.getVideoTracks()[0].applyConstraints({ advanced: [{ zoom: FORCE_ZOOM }] });
+      } catch (err) {
+        // no zoom on this camera: the overlay's zoom range says so
+      }
+    }
     video.srcObject = mediaStream;
     video.classList.toggle("mirrored", !isBackCamera(mediaStream.getVideoTracks()[0]));
     noticeEl.classList.toggle("hidden", !likelyCantFocusClose(mediaStream.getVideoTracks()[0]));

@@ -103,24 +103,44 @@ before camera access is granted, so the warning shows in the scanner, not on pag
 ## Help wanted: iPhone camera choice
 
 The scanner was tuned on Android phones. On iPhones it can't choose a lens the same way: Safari names its cameras
-"Back Camera", "Back Ultra Wide Camera", "Back Triple Camera" and so on, and reports no autofocus details, so the
-scanner keeps the camera Safari picks for `facingMode: "environment"`. Nobody has checked yet which camera reads a
-licence best on an iPhone, or whether Safari's pick is a good one. If you have an iPhone, especially one with two
-or three back cameras, you can help:
+"Back Camera", "Back Ultra Wide Camera", "Back Triple Camera" and so on (in the phone's language), and reports no
+autofocus details, so the scanner keeps the camera Safari picks for `facingMode: "environment"`. Nobody has
+checked yet which camera reads a licence best on an iPhone.
+
+What is known, mostly from native iOS apps:
+
+- On Pro iPhones from the 13 Pro on, the main lens can't focus closer than about 15-20 cm, which broke many
+  native barcode and ID scanners when those phones came out
+  ([Apple forums](https://developer.apple.com/forums/thread/715568)).
+- Apple's answer for native apps is a *virtual* camera ("Triple" or "Dual Wide") that switches lenses by itself,
+  to the ultra-wide's macro focus close up, or a zoom worked out from the lens's closest focus distance so the
+  user holds the phone further back ([WWDC21 "What's new in camera capture"](https://developer.apple.com/videos/play/wwdc2021/10047/),
+  its AVCamBarcode sample).
+- Safari offers those virtual cameras since iOS 16.4, but opens them at zoom 1, which is the ultra-wide lens;
+  the lens switching needs zoom 2 ([WebKit bug 250142](https://bugs.webkit.org/show_bug.cgi?id=250142),
+  [253186](https://bugs.webkit.org/show_bug.cgi?id=253186)). Safari also reports a camera's zoom range and
+  focus distance ([253646](https://bugs.webkit.org/show_bug.cgi?id=253646),
+  [253645](https://bugs.webkit.org/show_bug.cgi?id=253645)).
+
+So the likely answer is: the Triple (or Dual Wide) camera at zoom 2. That needs checking on real iPhones before
+it becomes the default. If you have one, especially a Pro, you can help:
 
 1. Open <https://licence.jedrivisser.com/scan/?debug=1> in Safari and tap "Scan licence". The text at the top of
-   the scanner shows the camera in use (`camera:`) and every camera Safari offers (`all cameras:`), for example
-   `Back Camera | Back Ultra Wide Camera | Back Triple Camera | Front Camera`. Scan your licence card and note
-   roughly how many seconds a read takes.
+   the scanner shows the camera in use (`camera:`), its zoom range and closest focus distance, and every camera
+   Safari offers (`all cameras:`), for example `Back Camera | Back Ultra Wide Camera | Back Triple Camera |
+   Front Camera`. Scan your licence card and note roughly how many seconds a read takes.
 2. Repeat for each back camera in that list, forcing it by name: add `&camera=` and a word from its name that no
    other camera's name contains, e.g. `?debug=1&camera=ultra` or `?debug=1&camera=triple` (for plain "Back
    Camera", the whole name: `?debug=1&camera=back%20camera`). The scanner uses the first camera whose name
    contains it; check that the `camera:` line changed.
-3. [Open an issue](https://github.com/jedrivisser/licence-scanner/issues/new) with your iPhone model, iOS version,
-   the camera Safari picked, and which cameras read the card and how fast.
+3. Try the multi-lens cameras at zoom 2 too: `?debug=1&camera=triple&zoom=2` and
+   `?debug=1&camera=dual%20wide&zoom=2`. The `zoom` line should say `now 2`. Watch whether the picture switches
+   lens as the card gets close.
+4. [Open an issue](https://github.com/jedrivisser/licence-scanner/issues/new) with your iPhone model, iOS version,
+   the first lines of the overlay for each camera, and which cameras read the card and how fast.
 
-Please don't attach screenshots, photos, saved frames or anything else showing a licence: the camera names and
-timings are all that's needed.
+Please don't attach screenshots, photos, saved frames or anything else showing a licence: the overlay's camera
+lines and timings are all that's needed.
 
 ## Use
 
